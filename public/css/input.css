@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+thead tr {
+  background-color: #f5f9fa;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #dae2e6 !important;
+}
+
+.selected {
+  border-left-width: 6px;
+  border-left-style: solid;
+  border-left-color: #0088a9;
+  background-color: #051e24;
+}
+
+.message {
+  color: #fff;
+  font-weight: bold;
+  padding: 0.25rem;
+  background-color: #222;
+  margin: 10px auto;
+}
+
+.message.m1 {
+  background-color: #01c40e;
+}
+.message.m2 {
+  background-color: #940202;
+}
+.message.m3 {
+  background-color: #e08610;
+}
+.message.m4 {
+  background-color: #0088a9;
+}
+
+/* login form */
+/* body done */
+.my-body {
+  @apply bg-[#c9d6ff] bg-gradient-to-r from-[#e2e2e2] to-[#c9d6ff] flex items-center justify-center flex-col w-screen h-screen font-inter;
+}
+/* container done */
+.my-container {
+  @apply bg-[#fff] rounded-[30px] shadow-xl shadow-indigo-500/50 relative w-[768px] max-w-full min-h-[480px] overflow-hidden;
+}
+/* p done */
+.my-container p {
+  @apply text-sm tracking-[0.3px]  my-[20px];
+}
+/* a done */
+.my-container a {
+  @apply text-[#333] text-[13px] mt-[15px] ml-0 mb-[10px] mr-0 text-center;
+}
+/* input submit signin done */
+.my-container .Sign-btn {
+  @apply bg-[#512da8] text-[#fff] text-[14px] py-[10px] px-[45px] border-2 border-solid border-transparent rounded-[8px] font-[600] tracking-[0.5px] uppercase mt-[10px] cursor-pointer hover:bg-[#fff] hover:text-[#512da8] hover:border-[#512da8];
+}
+/* done */
+.my-container .btn {
+  @apply py-[10px] px-5 bg-white text-[#512da8] rounded;
+}
+/* done */
+.btn-hidden {
+  @apply bg-transparent border-[#fff];
+}
+/* done */
+.my-container form {
+  @apply bg-[#fff] flex flex-col justify-center py-0 px-[40px] h-full;
+}
+/* done */
+.my-container input {
+  @apply bg-[#eee] border-none my-[8px] py-[10px] px-[15px] text-[16px] rounded-[8px] w-full outline-none;
+}
+
+.my-container label {
+  @apply font-bold flex justify-start;
+}
+
+/* done */
+.form-container {
+  @apply absolute top-0 h-full transition-all duration-[0.6s] ease-in-out;
+}
+/* done */
+.Sign-in-en {
+  @apply left-0 w-[50%] z-[2];
+}
+/* done */
+.my-container.active .Sign-in-en {
+  @apply transform translate-x-[100%];
+}
+/* done */
+.Sign-in-ar {
+  @apply left-0 w-[50%] opacity-0 z-[1];
+}
+/* done */
+.my-container.active .Sign-in-ar {
+  @apply transform translate-x-[100%] opacity-[1] z-[5] animate-[move_0.6s];
+}
+/* done */
+@keyframes move {
+  0%,
+  49.99% {
+    opacity: 0;
+    z-index: 1;
+  }
+  50%,
+  100% {
+    opacity: 1;
+    z-index: 5;
+  }
+}
+/* doen */
+.toggle-container {
+  @apply absolute top-0 left-[50%] w-[50%] h-full overflow-hidden transition-all duration-[0.6s] ease-in-out z-[1000] rounded-l-[100px];
+}
+/* done */
+.my-container.active .toggle-container {
+  @apply transform -translate-x-[100%] rounded-r-[100px] rounded-l-none;
+}
+/* done */
+.toggle {
+  @apply bg-[#512da8] h-full bg-gradient-to-r from-[#5c6bc0] to-[#512da8] text-[#fff] relative left-[-100%] w-[200%] transform translate-x-0 transition-all duration-[0.6s] ease-in-out;
+}
+/* doen */
+.my-container.active .toggle {
+  @apply transform translate-x-[50%];
+}
+
+.toggle-panel {
+  @apply absolute w-[50%] h-full flex items-center justify-center flex-col py-0 px-[15px] text-center top-0 transform translate-x-0 transition-all duration-[0.6s] ease-in-out;
+}
+
+.toggle-left {
+  @apply transform -translate-x-[200%];
+}
+
+.my-container.active .toggle-left {
+  @apply transform translate-x-0;
+}
+
+.toggle-right {
+  @apply right-0 transform -translate-x-0;
+}
+
+.my-container.active .toggle-right {
+  @apply transform translate-x-[200%];
+}
+
+input[type="file"] {
+  width: 280px;
+  line-height: normal;
+  height: 32px;
+  /* display: none; */
+}
+input::-webkit-file-upload-button,
+input::file-selector-button {
+  width: 0px;
+  overflow: hidden;
+  content: "";
+  padding: 0;
+  font-size: 0;
+  border: none;
+  height: 40px;
+  box-shadow: none;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+}
