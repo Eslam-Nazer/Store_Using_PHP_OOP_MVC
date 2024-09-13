@@ -30,9 +30,12 @@ defined('APP_SALT')             ? NULL : define('APP_SALT', '$2y$07$O9EYif5O2DmW
 defined("CHECK_FOR_PRIVILEGES") ? NULL : define('CHECK_FOR_PRIVILEGES', 1);
 
 // define the path to our uploaded files
-defined('UPLOAD_STORAGE')               ? NULL : define('UPLOAD_STORAGE', APP_PATH . DS . '..' . DS . 'public' . DS . 'uploads');
-defined('IMAGES_UPLOAD_STORAGE')        ? NULL : define('IMAGES_UPLOAD_STORAGE', UPLOAD_STORAGE . DS . 'images');
-defined('DOCUMENTS_UPLOAD_STORAGE')     ? NULL : define('DOCUMENTS_UPLOAD_STORAGE', UPLOAD_STORAGE . DS . 'documents');
+defined('UPLOAD_STORAGE') ? NULL : define('UPLOAD_STORAGE', APP_PATH . DS . '..' . DS . 'public' . DS . 'uploads');
+// Category Files
+defined('CATEGORY_UOLOAD_FILE') ? NULL : define('CATEGORY_UOLOAD_FILE', UPLOAD_STORAGE . DS . 'Categories');
+defined('CATEGORY_SECTION_UPLOAD_STORAGE') ? NULL : define('CATEGORY_SECTION_UPLOAD_STORAGE', CATEGORY_UOLOAD_FILE . DS . 'Sections');
+defined('CATEGORY_IMAGES_UPLOAD_STORAGE')        ? NULL : define('CATEGORY_IMAGES_UPLOAD_STORAGE', CATEGORY_UOLOAD_FILE . DS . 'images');
+defined('CATEGORY_DOCUMENTS_UPLOAD_STORAGE')     ? NULL : define('CATEGORY_DOCUMENTS_UPLOAD_STORAGE', CATEGORY_UOLOAD_FILE . DS . 'documents');
 
 // Max Accepted file size
 defined('MAX_FILE_SIZE_ALLOWED')        ? NULL : define('MAX_FILE_SIZE_ALLOWED', ini_get('upload_max_filesize'));
