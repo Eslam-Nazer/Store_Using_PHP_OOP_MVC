@@ -11,6 +11,7 @@ class FileUpload
     private $error;
     private $size;
     private $tmpPath;
+    private $fileSection;
 
     private $fileExtension;
     private $allowedExtensions = [
@@ -24,13 +25,14 @@ class FileUpload
         "xls"
     ];
 
-    public function __construct(array $file)
+    public function __construct(array $file, $fileSection = null)
     {
         $this->name     = $this->name($file['name']);
         $this->type     = $file['type'];
         $this->error    = $file['error'];
         $this->size     = $file['size'];
         $this->tmpPath  = $file['tmp_name'];
+        $this->fileSection = $fileSection;
     }
 
     public function name($name)
@@ -67,6 +69,38 @@ class FileUpload
         return $this->name . '.' . $this->fileExtension;
     }
 
+    public function fileSectionChecker()
+    {
+        if ($this->fileSection !== null) {
+            $sectionName = $this->fileSection->Name;
+            $sectionName = ucfirst(strtolower($sectionName));
+            $sectionImagePath = CATEGORY_IMAGES_UPLOAD_STORAGE . DS . $sectionName;
+            $sectionDocumentPath = CATEGORY_DOCUMENTS_UPLOAD_STORAGE . DS . $sectionName;
+            if ($this->isImage()) {
+                if (file_exists($sectionImagePath)) {
+                    return $sectionImagePath;
+                } else {
+                    mkdir($sectionImagePath);
+                    return $sectionImagePath;
+                }
+            } else {
+                if (file_exists($sectionDocumentPath)) {
+                    return $sectionDocumentPath;
+                } else {
+                    mkdir(CATEGORY_DOCUMENTS_UPLOAD_STORAGE . DS . $sectionName);
+                    return $sectionDocumentPath;
+                }
+            }
+        } else {
+            if (file_exists(CATEGORY_SECTION_UPLOAD_STORAGE)) {
+                return CATEGORY_SECTION_UPLOAD_STORAGE;
+            } else {
+                mkdir(CATEGORY_SECTION_UPLOAD_STORAGE);
+                return CATEGORY_SECTION_UPLOAD_STORAGE;
+            }
+        }
+    }
+
     public function upload()
     {
         if ($this->error != 0) {
@@ -76,7 +110,7 @@ class FileUpload
         } elseif ($this->isSizeNotAcceptable()) {
             throw new \Exception('Sorry the file size exeeds the mazimum allowed size');
         } else {
-            $storageFolder = $this->isImage() ? IMAGES_UPLOAD_STORAGE : DOCUMENTS_UPLOAD_STORAGE;
+            $storageFolder = $this->fileSectionChecker();
             if (is_writable($storageFolder)) {
                 move_uploaded_file($this->tmpPath, $storageFolder . DS . $this->getFileName());
             } else {
