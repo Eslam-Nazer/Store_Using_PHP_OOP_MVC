@@ -1,0 +1,1 @@
+<h1><?= $text_no_view_exists ?></h1>

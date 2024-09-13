@@ -1,0 +1,1 @@
+<h1><?= $text_page_notfound ?></h1>
