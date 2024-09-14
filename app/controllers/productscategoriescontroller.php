@@ -78,6 +78,7 @@ class ProductsCategoriesController extends AbstractController
         $this->language->load("validation.errors");
 
         $this->_data['category'] = $category;
+        $this->_data['categorySectionsPath'] = CATEGORY_SECTION_UPLOAD_STORAGE;
         $uploadErrors = false;
 
         if (isset($_POST['submit']) && $this->isValid($this->_createValidationRoles, $_POST)) {
@@ -85,8 +86,8 @@ class ProductsCategoriesController extends AbstractController
             $category->NameAr   = $this->filterString($_POST['NameAr']);
             if (isset($_FILES['image']) && !empty($_FILES['image']['name'])) {
                 // Remove Old Image
-                if ($category->Image !== null && file_exists(IMAGES_UPLOAD_STORAGE . DS . $category->Image && is_writable(IMAGES_UPLOAD_STORAGE))) {
-                    unlink(IMAGES_UPLOAD_STORAGE . DS . $category->Image);
+                if ($category->Image !== null && file_exists(CATEGORY_SECTION_UPLOAD_STORAGE . DS . $category->Image && is_writable(CATEGORY_SECTION_UPLOAD_STORAGE))) {
+                    unlink(CATEGORY_SECTION_UPLOAD_STORAGE . DS . $category->Image);
                 }
                 // Create a new image
                 $upload = new FileUpload($_FILES['image']);
@@ -120,8 +121,8 @@ class ProductsCategoriesController extends AbstractController
         $this->language->load("productscategories.messages");
 
         if ($category->delete()) {
-            if ($category->Image !== null && file_exists(IMAGES_UPLOAD_STORAGE . DS . $category->Image)) {
-                unlink(IMAGES_UPLOAD_STORAGE . DS . $category->Image);
+            if ($category->Image !== null && file_exists(CATEGORY_SECTION_UPLOAD_STORAGE . DS . $category->Image)) {
+                unlink(CATEGORY_SECTION_UPLOAD_STORAGE . DS . $category->Image);
             }
             $this->messenger->add($this->language->get("text_delete_success"), Messenger::APP_MESSAGE_INFO);
         } else {

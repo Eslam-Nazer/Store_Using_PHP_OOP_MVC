@@ -13,7 +13,7 @@ class TestController extends AbstractController
     {
         function alpha($value)
         {
-            return (bool) preg_match('/^[a-zA-Z\p{Arabic}0-9\s ]+$/u', $value);
+            return (bool) preg_match('/image/i', $value);
         }
         // var_dump(UsersGroupsModel::getModelTableName());
         echo '<pre>';

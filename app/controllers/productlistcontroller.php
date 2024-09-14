@@ -36,6 +36,7 @@ class ProductListController extends AbstractController
 
     public function createAction()
     {
+
         $this->language->load("productlist.create");
         $this->language->load("productlist.labels");
         $this->language->load("productlist.unit");
@@ -55,14 +56,15 @@ class ProductListController extends AbstractController
             $product->SellPrice     = $this->filterFloat($_POST['SellPrice']);
             $product->Unit          = $this->filterInt($_POST['Unit']);
 
+            $category = ProductsCategoriesModel::getByPK($product->CategoryId);
             $uploadErrors = false;
             if (isset($_FILES['image']) && !empty($_FILES['image']['name'])) {
-                $upload = new FileUpload($_FILES['image']);
+                $upload = new FileUpload($_FILES['image'], $category);
                 try {
                     $upload->upload();
                     $product->Image = $upload->getFileName();
                 } catch (\Exception $e) {
-                    $this->messnger->add($e->getMessage(), Messenger::APP_MESSAGE_ERROR);
+                    $this->messenger->add($e->getMessage(), Messenger::APP_MESSAGE_ERROR);
                     $uploadErrors = true;
                 }
             }
@@ -94,6 +96,7 @@ class ProductListController extends AbstractController
         $this->language->load("validation.errors");
 
         $this->_data['categories'] = ProductsCategoriesModel::getAll();
+        $this->_data['productCategory'] = ProductsCategoriesModel::getByPK($product->CategoryId);
         $this->_data['product'] = $product;
 
         if (isset($_POST['submit']) && $this->isValid($this->_createValidationRules, $_POST)) {
@@ -105,23 +108,25 @@ class ProductListController extends AbstractController
             $product->BuyPrice      = $this->filterFloat($_POST['BuyPrice']);
             $product->SellPrice     = $this->filterFloat($_POST['SellPrice']);
             $product->Unit          = $this->filterInt($_POST['Unit']);
-        }
-        $uploadErrors = false;
-        if (isset($_FILES['image']) && !empty($_FILES['image']['name'])) {
-            // Check if image exist and remove it
-            if ($product->Image !== null && file_exists(IMAGES_UPLOAD_STORAGE . DS . $product->Image)) {
-                unlink(IMAGES_UPLOAD_STORAGE . DS . $product->Image);
-            }
-            // Add A new image
-            $upload = new FileUpload($_FILES['image']);
-            try {
-                $upload->upload();
-                $product->Image = $upload->getFileName();
-            } catch (\Exception $e) {
-                $this->messenger->add($e->getMessage(), Messenger::APP_MESSAGE_ERROR);
-                $uploadErrors = true;
-            }
 
+            $category = ProductsCategoriesModel::getByPK($product->CategoryId);
+            $uploadErrors = false;
+
+            if (isset($_FILES['image']) && !empty($_FILES['image']['name'])) {
+                // Check if image exist and remove it
+                if ($product->Image !== null && file_exists(CATEGORY_IMAGES_UPLOAD_STORAGE . DS . $product->Image)) {
+                    unlink(CATEGORY_IMAGES_UPLOAD_STORAGE . DS . $product->Image);
+                    // Add A new image
+                    $upload = new FileUpload($_FILES['image'], $category);
+                    try {
+                        $upload->upload();
+                        $product->Image = $upload->getFileName();
+                    } catch (\Exception $e) {
+                        $this->messenger->add($e->getMessage(), Messenger::APP_MESSAGE_ERROR);
+                        $uploadErrors = true;
+                    }
+                }
+            }
             if ($product->save() && $uploadErrors === false) {
                 $this->messenger->add($this->language->get("text_save_modifying_success"));
                 $this->redirect('/productlist');
@@ -129,7 +134,6 @@ class ProductListController extends AbstractController
                 $this->messenger->add($this->language->get("text_save_modifying_failed"), Messenger::APP_MESSAGE_ERROR);
             }
         }
-
         $this->_view();
     }
 
@@ -137,6 +141,8 @@ class ProductListController extends AbstractController
     {
         $id = $this->filterInt($this->_params[0]);
         $product = ProductModel::getByPK($id);
+        $productCategory = ProductsCategoriesModel::getByPK($product->CategoryId);
+        $productCategoryDirName = ucfirst(strtolower($productCategory->Name));
 
         if ($product === false) {
             $this->redirect("/productlist");
@@ -145,8 +151,8 @@ class ProductListController extends AbstractController
         $this->language->load('productlist.messages');
 
         if ($product->delete()) {
-            if ($product->Image !== null && file_exists(IMAGES_UPLOAD_STORAGE . DS . $product->Image)) {
-                unlink(IMAGES_UPLOAD_STORAGE . DS . $product->Image);
+            if ($product->Image !== null && file_exists(CATEGORY_IMAGES_UPLOAD_STORAGE . DS . $productCategoryDirName . DS . $product->Image)) {
+                unlink(CATEGORY_IMAGES_UPLOAD_STORAGE . DS . $productCategoryDirName . DS . $product->Image);
             }
             $this->messenger->add($this->language->get("text_delete_success"), Messenger::APP_MESSAGE_INFO);
         } else {
