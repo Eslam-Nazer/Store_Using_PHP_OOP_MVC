@@ -94,7 +94,9 @@
                         <?php if ($product->Image != null) : ?>
                             <div class="flex justify-center items-center border-b-2 border-gray-300">
                                 <div class="p-3">
-                                    <img src="/uploads/images/<?= $this->showValue('Image', $product); ?>" width="50%">
+                                    <?php // <?= ucfirst(strtolower($productCategory->Name)) . '/' . $this->showValue('Image', $product); 
+                                    ?>
+                                    <img src="/uploads/Categories/images/<?= ucfirst(strtolower($productCategory->Name)) . '/' . $this->showValue('Image', $product); ?>" width="50%">
                                 </div>
                             </div>
                         <?php endif; ?>

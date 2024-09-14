@@ -46,7 +46,7 @@
                 <?php if ($category->Image != null) : ?>
                     <div class="flex justify-center items-center border-b-2 border-gray-300">
                         <div class="p-3">
-                            <img src="/uploads/images/<?= $category->Image; ?>" width="70%">
+                            <img src="/uploads/Categories/Sections/<?= $category->Image; ?>" width="70%">
                         </div>
                     </div>
                 <?php endif; ?>
