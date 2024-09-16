@@ -632,6 +632,10 @@ video {
   left: 2rem;
 }
 
+.right-8 {
+  right: 2rem;
+}
+
 .right-\[15px\] {
   right: 15px;
 }
@@ -648,14 +652,6 @@ video {
   top: 15px;
 }
 
-.right-0 {
-  right: 0px;
-}
-
-.right-8 {
-  right: 2rem;
-}
-
 .-z-10 {
   z-index: -10;
 }
@@ -670,10 +666,6 @@ video {
 
 .float-start {
   float: inline-start;
-}
-
-.float-end {
-  float: inline-end;
 }
 
 .mx-1 {
@@ -878,6 +870,10 @@ video {
   width: 50%;
 }
 
+.w-1\/4 {
+  width: 25%;
+}
+
 .w-1\/5 {
   width: 20%;
 }
@@ -916,14 +912,6 @@ video {
 
 .w-full {
   width: 100%;
-}
-
-.w-\[50\%\] {
-  width: 50%;
-}
-
-.w-1\/4 {
-  width: 25%;
 }
 
 .table-fixed {
@@ -1260,6 +1248,10 @@ video {
   padding-bottom: 0.75rem;
 }
 
+.pb-0 {
+  padding-bottom: 0px;
+}
+
 .pb-1 {
   padding-bottom: 0.25rem;
 }
@@ -1336,10 +1328,6 @@ video {
   padding-top: 4px;
 }
 
-.pb-0 {
-  padding-bottom: 0px;
-}
-
 .text-left {
   text-align: left;
 }
@@ -1400,11 +1388,6 @@ video {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
-}
-
-.text-base {
-  font-size: 1rem;
-  line-height: 1.5rem;
 }
 
 .font-bold {
@@ -1614,6 +1597,27 @@ tbody tr:nth-child(odd) {
 .message.m4 {
   background-color: #0088a9;
 }
+
+/* start check */
+
+.check {
+  position: relative;
+}
+
+.check::before {
+  position: absolute;
+  right: 0px;
+  height: 10px;
+  width: 10px;
+  align-items: center;
+  border-radius: 50%;
+  --tw-bg-opacity: 1;
+  background-color: rgb(214 48 49 / var(--tw-bg-opacity));
+  --tw-content: "";
+  content: var(--tw-content);
+}
+
+/* end check */
 
 /* login form */
 
@@ -2220,19 +2224,9 @@ input::file-selector-button {
     border-color: rgb(0 136 169 / var(--tw-border-opacity));
   }
 
-  .dark\:focus\:border-blue-500:focus {
-    --tw-border-opacity: 1;
-    border-color: rgb(59 130 246 / var(--tw-border-opacity));
-  }
-
   .dark\:focus\:ring-\[\#0088a9\]:focus {
     --tw-ring-opacity: 1;
     --tw-ring-color: rgb(0 136 169 / var(--tw-ring-opacity));
-  }
-
-  .dark\:focus\:ring-blue-500:focus {
-    --tw-ring-opacity: 1;
-    --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity));
   }
 
   .dark\:focus\:ring-teal-600:focus {
