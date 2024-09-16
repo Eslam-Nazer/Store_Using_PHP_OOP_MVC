@@ -18,9 +18,7 @@ class Messenger
     {
         $this->_session = $session;
     }
-    private function __clone()
-    {
-    }
+    private function __clone() {}
 
     public static function getInstance(SessionManager $session)
     {
