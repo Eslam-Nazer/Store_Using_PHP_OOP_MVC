@@ -8,6 +8,7 @@ use PHPMVC\Lib\Authentication;
 use PHPMVC\LIB\FrontController;
 use PHPMVC\Lib\Language;
 use PHPMVC\Lib\Messenger;
+use PHPMVC\Lib\Notification;
 use PHPMVC\Lib\Registry;
 use PHPMVC\Lib\SessionManager;
 use PHPMVC\Lib\Template\Template;
@@ -31,11 +32,13 @@ $template = new Template($template_parts);
 $language = new Language();
 $messgenger = Messenger::getInstance($session);
 $authentication = Authentication::getInstance($session);
+$notification = Notification::getInstance();
 
 $registry = Registry::getInstance();
 $registry->session = $session;
 $registry->language = $language;
 $registry->messenger = $messgenger;
+$registry->notification = $notification;
 
 $front = new FrontController($template, $registry, $authentication);
 $front->dispatch();
