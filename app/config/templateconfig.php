@@ -8,11 +8,14 @@ return [
     ],
     'header_resources'  => [
         'css' => [
+            'normalize' => CSS . "normalize.css",
             'styles' => CSS . "styles.css",
-            'datatables' => CSS . "datatables.css"
+            'datatables' => CSS . "datatables.css",
+            'fontawesome' => CSS . "fontawesome/all.css",
+            'input' => CSS . "input.css",
+            'output' => CSS . "output.css",
         ],
         'js' => [
-            'jquery' => JS . "jquery-3.7.1.min.js",
             'datatables' => JS . "datatables.js"
         ]
     ],
