@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 01, 2024 at 08:21 PM
+-- Generation Time: Sep 23, 2024 at 08:57 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -53,8 +53,16 @@ INSERT INTO `app_clients` (`ClientId`, `Name`, `NameAr`, `PhoneNumber`, `Email`,
 CREATE TABLE `app_expenses_categories` (
   `ExpenseId` tinyint(3) UNSIGNED NOT NULL,
   `ExpenseName` varchar(30) NOT NULL,
+  `ExpenseNameAr` varchar(30) NOT NULL,
   `FixedPayment` decimal(7,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `app_expenses_categories`
+--
+
+INSERT INTO `app_expenses_categories` (`ExpenseId`, `ExpenseName`, `ExpenseNameAr`, `FixedPayment`) VALUES
+(1, 'water bills', 'فاتورة المياه', 120.00);
 
 -- --------------------------------------------------------
 
@@ -83,8 +91,15 @@ CREATE TABLE `app_notifications` (
   `Type` tinyint(3) UNSIGNED NOT NULL,
   `Created` datetime NOT NULL,
   `UserId` int(10) UNSIGNED NOT NULL,
-  `Seen` tinyint(1) DEFAULT 0
+  `Seen` tinyint(1) UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `app_notifications`
+--
+
+INSERT INTO `app_notifications` (`NotificationId`, `Title`, `Content`, `Type`, `Created`, `UserId`, `Seen`) VALUES
+(22, 'new Notification', 'this is notification', 1, '2024-09-16 21:51:10', 25, 1);
 
 -- --------------------------------------------------------
 
@@ -104,8 +119,8 @@ CREATE TABLE `app_products_categories` (
 --
 
 INSERT INTO `app_products_categories` (`CategoryId`, `Name`, `NameAr`, `Image`) VALUES
-(19, 'labtops', 'الاجهزة اللوحية', 'v2fhyw_fvb3cu_anblzy_qyesqw_nyrpou.jpeg'),
-(20, 'Games', 'العاب', 'z2ftzx_muanbn_jdj5jd_a3je85_rvlpzj.jpg');
+(21, 'labtops', 'الاجهزة اللوحية', 'cg9ydg_zvbglv_ltmuan_blzyqy_esqwny.jpeg'),
+(22, 'Games', 'العاب', 'z2ftzx_muanbn_jdj5jd_a3je85_rvlpzj.jpg');
 
 -- --------------------------------------------------------
 
@@ -273,7 +288,7 @@ CREATE TABLE `app_users` (
 
 INSERT INTO `app_users` (`UserId`, `Username`, `Password`, `Email`, `PhoneNumber`, `SubscriptionDate`, `LastLogin`, `GroupId`, `Status`) VALUES
 (20, 'Ahmed', '$2y$07$O9EYif5O2DmWuHQ8S5iYseviaQxosZpU4PFtEBd5YC2Dw1IvAPUGi', 'a@y.com', '0123345678901', '2024-08-03', '2024-08-05 12:11:58', 41, 1),
-(25, 'Eslam', '$2y$07$O9EYif5O2DmWuHQ8S5iYseviaQxosZpU4PFtEBd5YC2Dw1IvAPUGi', 'e@en.info', '01012345678', '2024-08-03', '2024-08-29 22:47:46', 41, 1),
+(25, 'Eslam', '$2y$07$O9EYif5O2DmWuHQ8S5iYseviaQxosZpU4PFtEBd5YC2Dw1IvAPUGi', 'e@en.info', '01012345678', '2024-08-03', '2024-09-23 00:08:39', 41, 1),
 (26, 'Esam', '$2y$07$O9EYif5O2DmWuHQ8S5iYseviaQxosZpU4PFtEBd5YC2Dw1IvAPUGi', 'es@gmail.com', '002002323', '2024-08-04', '2024-08-04 10:52:16', 41, 1),
 (27, 'mahmoud', '$2y$07$O9EYif5O2DmWuHQ8S5iYseviaQxosZpU4PFtEBd5YC2Dw1IvAPUGi', 'm@G.com', '002002323', '2024-08-05', '2024-08-05 12:02:14', 41, 1);
 
@@ -340,7 +355,15 @@ INSERT INTO `app_users_groups_privileges` (`Id`, `GroupId`, `PrivilegeId`) VALUE
 (52, 41, 44),
 (53, 41, 45),
 (54, 41, 46),
-(55, 41, 47);
+(55, 41, 47),
+(56, 41, 48),
+(57, 41, 49),
+(58, 41, 50),
+(59, 41, 51),
+(60, 41, 52),
+(61, 41, 53),
+(62, 41, 54),
+(63, 41, 55);
 
 -- --------------------------------------------------------
 
@@ -387,7 +410,15 @@ INSERT INTO `app_users_privileges` (`PrivilegeId`, `Privilege`, `PrivilegeTitle`
 (44, '/productlist/default', 'Show Products', 'استعراض المنتجات'),
 (45, '/productlist/create', 'Add Product', 'اضافة منتج جديد'),
 (46, '/productlist/edit', 'Modifying Product', 'تعديل علي منتج'),
-(47, '/productlist/delete', 'Deleting Product', 'حذف منتج');
+(47, '/productlist/delete', 'Deleting Product', 'حذف منتج'),
+(48, '/typeofexpenses/default', 'Show Type Of Expenses', 'عرض انواع المصروفات'),
+(49, '/typeofexpenses/create', 'Create New Type Of Expenses', 'اضافة نوع جديد من المصروفات'),
+(50, '/typeofexpenses/edit', 'Modifying Type Of Expenses', 'التعديل علي نوع من المصروفات'),
+(51, '/typeofexpenses/delete', 'Deleting Type Of Expenses', 'حذف نوع من انواع  المصروفات'),
+(52, '/dailyexpenses/default', 'Show Daliy Expenses', 'عرض المصروفات اليومية'),
+(53, '/dailyexpenses/create', 'Create New Daliy Expense', 'اضافة مصروف يومي جديد'),
+(54, '/dailyexpenses/edit/', 'Modifying Daliy Expense', 'التعديل علي مصروف يومي'),
+(55, '/dailyexpenses/delete/', 'Deleting Daliy Expense', 'حذف مصروف يومي');
 
 -- --------------------------------------------------------
 
@@ -563,7 +594,7 @@ ALTER TABLE `app_clients`
 -- AUTO_INCREMENT for table `app_expenses_categories`
 --
 ALTER TABLE `app_expenses_categories`
-  MODIFY `ExpenseId` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `ExpenseId` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `app_expenses_daily_list`
@@ -575,19 +606,19 @@ ALTER TABLE `app_expenses_daily_list`
 -- AUTO_INCREMENT for table `app_notifications`
 --
 ALTER TABLE `app_notifications`
-  MODIFY `NotificationId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `NotificationId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `app_products_categories`
 --
 ALTER TABLE `app_products_categories`
-  MODIFY `CategoryId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `CategoryId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `app_products_list`
 --
 ALTER TABLE `app_products_list`
-  MODIFY `ProductId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ProductId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `app_purchases_invoices`
@@ -647,13 +678,13 @@ ALTER TABLE `app_users_groups`
 -- AUTO_INCREMENT for table `app_users_groups_privileges`
 --
 ALTER TABLE `app_users_groups_privileges`
-  MODIFY `Id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `Id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `app_users_privileges`
 --
 ALTER TABLE `app_users_privileges`
-  MODIFY `PrivilegeId` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `PrivilegeId` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `app_users_profiles`
