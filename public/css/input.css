@@ -2,9 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  padding: 0;
-  margin: 0;
+body {
+  @apply bg-[#eee];
 }
 
 thead tr {
@@ -42,22 +41,6 @@ tbody tr:nth-child(odd) {
 .message.m4 {
   background-color: #0088a9;
 }
-
-/* start check */
-.check {
-  @apply relative;
-}
-.check::before {
-  @apply content-[""]
-  absolute
-  w-[10px]
-  h-[10px]
-  bg-[#d63031]
-  rounded-[50%]
-  items-center
-  right-0;
-}
-/* end check */
 
 /* login form */
 /* body done */
@@ -190,4 +173,8 @@ input::file-selector-button {
   align-items: center;
   align-self: center;
   align-content: center;
+}
+
+.dataTable {
+  @apply !w-full transition-all duration-500 ease-in-out;
 }
