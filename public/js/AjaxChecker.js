@@ -39,23 +39,22 @@
   }
 })();
 
-let btn = document.querySelector("#notify");
+let notifyBtn = document.querySelector("#notify");
+let notifyDot = document.querySelector("#notifyDot");
 
-btn.addEventListener(
+notifyBtn.onclick = function () {
+  if (notifyDot.classList.contains("check")) {
+    notifyDot.classList.remove("check");
+  }
+};
+
+notifyBtn.addEventListener(
   "click",
   function () {
     let req = new XMLHttpRequest();
     req.open("POST", "");
     req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
     req.send("action=" + encodeURIComponent("checked"));
   },
   false
 );
-
-if (btn.classList.contains("check")) {
-  let checked = document.querySelector(".check");
-  checked.addEventListener("click", function () {
-    checked.classList.remove("check");
-  });
-}
