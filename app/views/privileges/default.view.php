@@ -1,4 +1,4 @@
-<div>
+<div class="block mx-1 my-auto">
     <a href="/privileges/create" class="py-2 px-3 rounded-lg bg-[#0088a9] text-[#FFF] my-2 inline-block  hover:bg-[#FFF] hover:text-[#0088a9] border-2 hover:border-[#0088a9]">
         <div class="flex justify-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -9,7 +9,7 @@
             </div>
         </div>
     </a>
-    <table class="<?= $this->session->lang == 'ar' ? $this->session->lang : null ?>" id="data" <?= $this->session->lang == 'ar' ? 'dir="rtl"' : null ?>>
+    <table class="<?= $this->session->lang == 'ar' ? $this->session->lang : null ?>" id="data" <?= $this->session->lang == 'ar' ? 'dir="rtl"' : null ?> style="width: 100%;">
         <thead>
             <tr class="border-b-4 border-[#8f9497]">
                 <th <?= $this->session->lang == 'ar' ? 'style="text-align: right;"' : null ?>><?= $text_table_privilege ?></th>
