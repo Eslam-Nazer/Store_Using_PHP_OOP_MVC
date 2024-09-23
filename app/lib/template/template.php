@@ -89,7 +89,7 @@ class Template
         } else {
             $headerResources = $this->_templateParts['header_resources'];
             if (!empty($headerResources)) {
-                //                Generate CSS Links
+                // Generate CSS Links
                 $css = $headerResources['css'];
                 if (!empty($css)) {
                     foreach ($css as $cssKry => $path) {
