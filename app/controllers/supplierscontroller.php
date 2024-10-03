@@ -18,7 +18,7 @@ class SuppliersController extends AbstractController
         'Email'         => 'req|email|max(40)',
         'PhoneNumber'   => 'req|alphanum|max(15)',
         'Address'       => 'req|alphanum|max(50)',
-        'AddressAr'       => 'req|alphanum|max(50)',
+        'AddressAr'     => 'req|alphanum|max(50)',
     ];
 
     public function defaultAction()
