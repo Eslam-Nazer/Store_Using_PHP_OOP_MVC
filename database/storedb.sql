@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 23, 2024 at 08:57 AM
+-- Generation Time: Sep 30, 2024 at 10:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -62,7 +62,10 @@ CREATE TABLE `app_expenses_categories` (
 --
 
 INSERT INTO `app_expenses_categories` (`ExpenseId`, `ExpenseName`, `ExpenseNameAr`, `FixedPayment`) VALUES
-(1, 'water bills', 'فاتورة المياه', 120.00);
+(1, 'water bills', 'فاتورة المياه', 120.00),
+(4, 'gas bills', 'فاتوره الغاز', 200.00),
+(5, 'Accountant salary', 'راتب المحاسب', 3000.00),
+(6, 'Electricity bill', 'فاتورة الكهرباء', 400.00);
 
 -- --------------------------------------------------------
 
@@ -77,6 +80,16 @@ CREATE TABLE `app_expenses_daily_list` (
   `Created` datetime NOT NULL,
   `UserId` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `app_expenses_daily_list`
+--
+
+INSERT INTO `app_expenses_daily_list` (`DExpensesId`, `ExpenseId`, `Payment`, `Created`, `UserId`) VALUES
+(1, 1, 120.00, '2024-09-23 11:33:52', 25),
+(3, 5, 3000.00, '2024-09-24 18:58:52', 25),
+(4, 4, 200.00, '2024-09-24 18:58:37', 25),
+(5, 6, 400.00, '2024-09-24 18:59:30', 25);
 
 -- --------------------------------------------------------
 
@@ -141,6 +154,14 @@ CREATE TABLE `app_products_list` (
   `BarCode` char(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Dumping data for table `app_products_list`
+--
+
+INSERT INTO `app_products_list` (`ProductId`, `CategoryId`, `Name`, `NameAr`, `Image`, `Quantity`, `BuyPrice`, `SellPrice`, `Unit`, `BarCode`) VALUES
+(11, 21, 'Hp laptop v3242', 'جهاز لوحي اتش بي اصدار 3242', 'cg9ydg_zvbglv_ltmuan_blzyqy_esqwny.jpeg', 50, 0.00, 280.00, 4, '77328423874'),
+(12, 22, 'kids game', 'العاب الاطفال', 'zg93bm_xvywqu_anblzy_qyesqw_nyrpou.jpeg', 100, 59.00, 80.00, 2, '21321313132');
+
 -- --------------------------------------------------------
 
 --
@@ -150,12 +171,41 @@ CREATE TABLE `app_products_list` (
 CREATE TABLE `app_purchases_invoices` (
   `InvoiceId` int(10) UNSIGNED NOT NULL,
   `SupplierId` int(10) UNSIGNED NOT NULL,
-  `PaymentType` tinyint(3) UNSIGNED NOT NULL,
+  `PaymentTypeId` tinyint(3) UNSIGNED NOT NULL,
   `PaymentStatus` tinyint(3) UNSIGNED NOT NULL,
   `Created` datetime NOT NULL,
   `Discount` decimal(8,2) UNSIGNED DEFAULT NULL,
   `UserId` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `app_purchases_invoices`
+--
+
+INSERT INTO `app_purchases_invoices` (`InvoiceId`, `SupplierId`, `PaymentTypeId`, `PaymentStatus`, `Created`, `Discount`, `UserId`) VALUES
+(1, 1, 1, 0, '2024-09-30 19:29:07', 0.00, 25),
+(2, 1, 1, 0, '2024-09-30 19:29:50', 0.00, 25),
+(3, 1, 1, 0, '2024-09-30 19:30:47', 0.00, 25),
+(4, 1, 1, 0, '2024-09-30 19:33:18', 0.04, 25),
+(5, 1, 1, 0, '2024-09-30 19:33:34', 0.04, 25),
+(6, 1, 1, 0, '2024-09-30 19:36:14', 0.04, 25),
+(7, 1, 1, 0, '2024-09-30 19:37:40', 0.04, 25),
+(8, 1, 1, 0, '2024-09-30 19:38:34', 0.04, 25),
+(9, 1, 1, 0, '2024-09-30 19:38:45', 0.04, 25),
+(10, 1, 1, 0, '2024-09-30 19:39:38', 0.04, 25),
+(11, 1, 1, 0, '2024-09-30 19:40:08', 0.04, 25),
+(12, 1, 1, 0, '2024-09-30 19:40:51', 0.04, 25),
+(13, 1, 1, 0, '2024-09-30 19:44:54', 0.04, 25),
+(14, 1, 1, 0, '2024-09-30 19:45:52', 0.04, 25),
+(15, 1, 1, 0, '2024-09-30 20:00:08', 0.04, 25),
+(16, 1, 1, 0, '2024-09-30 20:01:07', 0.04, 25),
+(17, 1, 1, 0, '2024-09-30 20:08:05', 0.04, 25),
+(18, 1, 1, 0, '2024-09-30 20:42:23', 0.04, 25),
+(19, 1, 1, 0, '2024-09-30 20:48:50', 0.04, 25),
+(20, 1, 1, 0, '2024-09-30 20:50:45', 0.04, 25),
+(21, 1, 1, 0, '2024-09-30 20:50:57', 0.00, 25),
+(22, 1, 1, 0, '2024-09-30 20:56:23', 0.00, 25),
+(23, 1, 1, 0, '2024-09-30 21:14:04', 0.04, 25);
 
 -- --------------------------------------------------------
 
@@ -174,13 +224,34 @@ CREATE TABLE `app_purchases_invoices_details` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `app_purchases_invoices_payment_type`
+--
+
+CREATE TABLE `app_purchases_invoices_payment_type` (
+  `PaymentTypeId` tinyint(3) UNSIGNED NOT NULL,
+  `TypeName` varchar(30) NOT NULL,
+  `TypeNameAr` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `app_purchases_invoices_payment_type`
+--
+
+INSERT INTO `app_purchases_invoices_payment_type` (`PaymentTypeId`, `TypeName`, `TypeNameAr`) VALUES
+(1, 'Bank transfer', 'تحويل بنكي'),
+(2, 'On credit', 'بالاجل'),
+(3, 'Cash payment', 'دفع نقدي');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `app_purchases_invoices_receipts`
 --
 
 CREATE TABLE `app_purchases_invoices_receipts` (
   `ReceiptId` int(10) UNSIGNED NOT NULL,
   `InvoiceId` int(10) UNSIGNED NOT NULL,
-  `PaymentType` tinyint(3) UNSIGNED NOT NULL,
+  `PaymentTypeId` tinyint(3) UNSIGNED NOT NULL,
   `PaymentAmount` decimal(8,2) UNSIGNED NOT NULL,
   `PaymentLiteral` varchar(60) NOT NULL,
   `BankName` varchar(30) DEFAULT NULL,
@@ -262,7 +333,8 @@ CREATE TABLE `app_suppliers` (
 --
 
 INSERT INTO `app_suppliers` (`SupplierId`, `Name`, `NameAr`, `PhoneNumber`, `Email`, `Address`, `AddressAr`) VALUES
-(1, 'Ahmed Mohammed Ismail', 'احمد محمد اسماعيل', '01094775632', 'Ahmed123@Mail.com', 'Egypt, Cairo, Nsr City,  Moll Elsrock2', 'مصر - القاهرة مدينة نصر - الشروق مول 2');
+(1, 'Ahmed Mohammed Ismail', 'احمد محمد اسماعيل', '01094775632', 'Ahmed123@Mail.com', 'Egypt, Cairo, Nsr City,  Moll Elsrock2', 'مصر - القاهرة مدينة نصر - الشروق مول 2'),
+(3, 'Mohamed Ahmed AbdAllah', 'محمد احمد عبد الله', '01192438432', 'mohamed@gmail.com', 'Egypt, new Qena 2', 'مصر , قنا الجديدة 2');
 
 -- --------------------------------------------------------
 
@@ -288,7 +360,7 @@ CREATE TABLE `app_users` (
 
 INSERT INTO `app_users` (`UserId`, `Username`, `Password`, `Email`, `PhoneNumber`, `SubscriptionDate`, `LastLogin`, `GroupId`, `Status`) VALUES
 (20, 'Ahmed', '$2y$07$O9EYif5O2DmWuHQ8S5iYseviaQxosZpU4PFtEBd5YC2Dw1IvAPUGi', 'a@y.com', '0123345678901', '2024-08-03', '2024-08-05 12:11:58', 41, 1),
-(25, 'Eslam', '$2y$07$O9EYif5O2DmWuHQ8S5iYseviaQxosZpU4PFtEBd5YC2Dw1IvAPUGi', 'e@en.info', '01012345678', '2024-08-03', '2024-09-23 00:08:39', 41, 1),
+(25, 'Eslam', '$2y$07$O9EYif5O2DmWuHQ8S5iYseviaQxosZpU4PFtEBd5YC2Dw1IvAPUGi', 'e@en.info', '01012345678', '2024-08-03', '2024-09-30 19:12:18', 41, 1),
 (26, 'Esam', '$2y$07$O9EYif5O2DmWuHQ8S5iYseviaQxosZpU4PFtEBd5YC2Dw1IvAPUGi', 'es@gmail.com', '002002323', '2024-08-04', '2024-08-04 10:52:16', 41, 1),
 (27, 'mahmoud', '$2y$07$O9EYif5O2DmWuHQ8S5iYseviaQxosZpU4PFtEBd5YC2Dw1IvAPUGi', 'm@G.com', '002002323', '2024-08-05', '2024-08-05 12:02:14', 41, 1);
 
@@ -363,7 +435,11 @@ INSERT INTO `app_users_groups_privileges` (`Id`, `GroupId`, `PrivilegeId`) VALUE
 (60, 41, 52),
 (61, 41, 53),
 (62, 41, 54),
-(63, 41, 55);
+(63, 41, 55),
+(64, 41, 56),
+(65, 41, 57),
+(66, 41, 58),
+(67, 41, 59);
 
 -- --------------------------------------------------------
 
@@ -415,10 +491,14 @@ INSERT INTO `app_users_privileges` (`PrivilegeId`, `Privilege`, `PrivilegeTitle`
 (49, '/typeofexpenses/create', 'Create New Type Of Expenses', 'اضافة نوع جديد من المصروفات'),
 (50, '/typeofexpenses/edit', 'Modifying Type Of Expenses', 'التعديل علي نوع من المصروفات'),
 (51, '/typeofexpenses/delete', 'Deleting Type Of Expenses', 'حذف نوع من انواع  المصروفات'),
-(52, '/dailyexpenses/default', 'Show Daliy Expenses', 'عرض المصروفات اليومية'),
-(53, '/dailyexpenses/create', 'Create New Daliy Expense', 'اضافة مصروف يومي جديد'),
-(54, '/dailyexpenses/edit/', 'Modifying Daliy Expense', 'التعديل علي مصروف يومي'),
-(55, '/dailyexpenses/delete/', 'Deleting Daliy Expense', 'حذف مصروف يومي');
+(52, '/dailyexpenses/default', 'Show Daily Expenses', 'عرض المصروفات اليومية'),
+(53, '/dailyexpenses/create', 'Create New Daily Expense', 'اضافة مصروف يومي جديد'),
+(54, '/dailyexpenses/edit', 'Modifying Daily Expense', 'التعديل علي مصروف يومي'),
+(55, '/dailyexpenses/delete', 'Deleting Daily Expense', 'حذف مصروف يومي'),
+(56, '/purchasesinvoices/default', 'Show Purshases Invoices', 'عرض فواتير المشتريات'),
+(57, '/purchasesinvoices/create', 'Create Purshases Invoice', 'انشاء فاتورة مشتريات'),
+(58, '/purchasesinvoices/edit', 'Modifying Purshases Invoice', 'التعديل علي فاتورة مشتريات'),
+(59, '/purchasesinvoices/delete', 'Delete Purshases Invoice', 'حذف فاتورة مشتريات');
 
 -- --------------------------------------------------------
 
@@ -495,7 +575,8 @@ ALTER TABLE `app_products_list`
 ALTER TABLE `app_purchases_invoices`
   ADD PRIMARY KEY (`InvoiceId`),
   ADD KEY `SupplierId` (`SupplierId`),
-  ADD KEY `UserId` (`UserId`);
+  ADD KEY `UserId` (`UserId`),
+  ADD KEY `PaymentTypeId` (`PaymentTypeId`);
 
 --
 -- Indexes for table `app_purchases_invoices_details`
@@ -504,6 +585,12 @@ ALTER TABLE `app_purchases_invoices_details`
   ADD PRIMARY KEY (`Id`),
   ADD KEY `ProductId` (`ProductId`),
   ADD KEY `InvoiceId` (`InvoiceId`);
+
+--
+-- Indexes for table `app_purchases_invoices_payment_type`
+--
+ALTER TABLE `app_purchases_invoices_payment_type`
+  ADD PRIMARY KEY (`PaymentTypeId`);
 
 --
 -- Indexes for table `app_purchases_invoices_receipts`
@@ -594,13 +681,13 @@ ALTER TABLE `app_clients`
 -- AUTO_INCREMENT for table `app_expenses_categories`
 --
 ALTER TABLE `app_expenses_categories`
-  MODIFY `ExpenseId` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ExpenseId` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `app_expenses_daily_list`
 --
 ALTER TABLE `app_expenses_daily_list`
-  MODIFY `DExpensesId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `DExpensesId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `app_notifications`
@@ -618,19 +705,25 @@ ALTER TABLE `app_products_categories`
 -- AUTO_INCREMENT for table `app_products_list`
 --
 ALTER TABLE `app_products_list`
-  MODIFY `ProductId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `ProductId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `app_purchases_invoices`
 --
 ALTER TABLE `app_purchases_invoices`
-  MODIFY `InvoiceId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `InvoiceId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `app_purchases_invoices_details`
 --
 ALTER TABLE `app_purchases_invoices_details`
-  MODIFY `Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `app_purchases_invoices_payment_type`
+--
+ALTER TABLE `app_purchases_invoices_payment_type`
+  MODIFY `PaymentTypeId` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `app_purchases_invoices_receipts`
@@ -660,7 +753,7 @@ ALTER TABLE `app_sales_invoices_receipts`
 -- AUTO_INCREMENT for table `app_suppliers`
 --
 ALTER TABLE `app_suppliers`
-  MODIFY `SupplierId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `SupplierId` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `app_users`
@@ -678,13 +771,13 @@ ALTER TABLE `app_users_groups`
 -- AUTO_INCREMENT for table `app_users_groups_privileges`
 --
 ALTER TABLE `app_users_groups_privileges`
-  MODIFY `Id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `Id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `app_users_privileges`
 --
 ALTER TABLE `app_users_privileges`
-  MODIFY `PrivilegeId` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `PrivilegeId` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `app_users_profiles`
@@ -720,7 +813,8 @@ ALTER TABLE `app_products_list`
 --
 ALTER TABLE `app_purchases_invoices`
   ADD CONSTRAINT `app_purchases_invoices_ibfk_1` FOREIGN KEY (`SupplierId`) REFERENCES `app_suppliers` (`SupplierId`),
-  ADD CONSTRAINT `app_purchases_invoices_ibfk_2` FOREIGN KEY (`UserId`) REFERENCES `app_users` (`UserID`);
+  ADD CONSTRAINT `app_purchases_invoices_ibfk_2` FOREIGN KEY (`UserId`) REFERENCES `app_users` (`UserID`),
+  ADD CONSTRAINT `app_purchases_invoices_ibfk_3` FOREIGN KEY (`PaymentTypeId`) REFERENCES `app_purchases_invoices_payment_type` (`PaymentTypeId`);
 
 --
 -- Constraints for table `app_purchases_invoices_details`
