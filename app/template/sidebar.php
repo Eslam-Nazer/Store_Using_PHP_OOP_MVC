@@ -30,7 +30,7 @@
             <span class="tooltip <?= $this->session->lang == "ar" ? "font-zain" : null ?>"><?= $text_transactions ?></span>
         </li>
         <ul class="submenu" id="Transactions-menu">
-            <li><a class="<?= $this->session->lang == "ar" ? "font-zain" : null ?>" href="#"><?= $text_purchases ?></a></li>
+            <li><a class="<?= $this->session->lang == "ar" ? "font-zain" : null ?>" href="/purchasesinvoices/default"><?= $text_purchases ?></a></li>
             <li><a class="<?= $this->session->lang == "ar" ? "font-zain" : null ?>" href="#"><?= $text_sales ?></a></li>
         </ul>
 
