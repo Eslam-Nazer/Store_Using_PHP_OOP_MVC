@@ -6,7 +6,7 @@ class PurchasesInvoicesReceiptsModel extends AbstractModel
 {
     private $ReceiptId;
     private $InvoiceId;
-    private $PaymentType;
+    private $PaymentTypeId;
     private $PaymentAmount;
     private $PaymentLiteral;
     private $BankName;
@@ -21,7 +21,7 @@ class PurchasesInvoicesReceiptsModel extends AbstractModel
     protected static $tableSchema   = [
         "ReceiptId"         => self::DATA_TYPE_INT,
         "InvoiceId"         => self::DATA_TYPE_INT,
-        "PaymentType"       => self::DATA_TYPE_INT,
+        "PaymentTypeId"     => self::DATA_TYPE_INT,
         "PaymentAmount"     => self::DATA_TYPE_DECIMAL,
         "PaymentLiteral"    => self::DATA_TYPE_STR,
         "BankName"          => self::DATA_TYPE_STR,
@@ -41,6 +41,6 @@ class PurchasesInvoicesReceiptsModel extends AbstractModel
 
     public function __get($prop)
     {
-        $this->$prop;
+        return $this->$prop;
     }
 }

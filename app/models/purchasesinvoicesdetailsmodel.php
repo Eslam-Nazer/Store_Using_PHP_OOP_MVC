@@ -29,6 +29,6 @@ class PurchasesInvoicesDetailsModel extends AbstractModel
 
     public function __get($prop)
     {
-        $this->$prop;
+        return $this->$prop;
     }
 }
